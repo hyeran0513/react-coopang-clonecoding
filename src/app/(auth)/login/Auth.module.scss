@@ -1,0 +1,46 @@
+.page {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+
+  .container {
+    width: 576px;
+
+    .logo {
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .form {
+      display: flex;
+      flex-flow: column;
+      width: 100%;
+      max-width: 578px;
+
+      .control {
+        margin-bottom: 20px;
+      }
+
+      .group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2px;
+
+        .findLink {
+          color: var(--color-primary);
+          text-decoration: none;
+          font-size: 1.4rem;
+        }
+
+        .findLinkArrow {
+          margin-left: 6px;
+          vertical-align: -3px;
+        }
+      }
+
+      .buttonGroup {
+        margin: 2rem 0;
+      }
+    }
+  }
+}
