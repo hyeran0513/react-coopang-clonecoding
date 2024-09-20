@@ -9,6 +9,7 @@ import styles from './Auth.module.scss'
 import Loader from '@/components/loader/Loader'
 import Input from '@/components/input/Input'
 import AutoSignCheckbox from '@/components/autoSignInCheckbox/AutoSignCheckbox'
+import Divider from '@/components/devider/Devider'
 
 const LoginClient = () => {
 
@@ -78,6 +79,11 @@ const LoginClient = () => {
             <div className={styles.buttonGroup}>
               {/* Button */}
               Button
+
+              <Divider />
+              
+              Button
+              <Divider color='red' />
               <div>
                 {/* Button */}
                 Button
