@@ -12,6 +12,7 @@ import AutoSignCheckbox from '@/components/autoSignInCheckbox/AutoSignCheckbox'
 import Divider from '@/components/devider/Devider'
 import Button from '@/components/button/Button'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 const LoginClient = () => {
 
@@ -28,6 +29,7 @@ const LoginClient = () => {
 
   const loginUser = (e) => {
     e.preventDefault();
+    toast.info('성공');
     setisLoading(true);
   }
 

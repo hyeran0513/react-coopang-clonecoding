@@ -11,12 +11,15 @@ import Input from '@/components/input/Input'
 import Divider from '@/components/devider/Devider'
 import Button from '@/components/button/Button'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/firebase/firebase';
 
 const RegisterClient = () => {
 
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-  const [checkPassword, setCheckPassword] = useState('');
+  const [cPassword, setcPassword] = useState('');
   const [isLoading, setisLoading] = useState(false);
 
   const router = useRouter();
@@ -27,7 +30,26 @@ const RegisterClient = () => {
 
   const registerUser = (e) => {
     e.preventDefault();
+
+    if (password !== cPassword) {
+      return toast.error("비밀번호가 일치하지 않습니다");
+    }
+
     setisLoading(true);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredentail) => {
+        const user = userCredentail.user;
+        console.log(user);
+        setisLoading(false);
+
+        toast.success("등록 성공...");
+        router.push("/login");
+      })
+      .catch((error) => {
+        setisLoading(false);
+        toast.error(error.message)
+      });
   }
 
   return (
@@ -68,13 +90,13 @@ const RegisterClient = () => {
             <Input 
               password
               icon="lock"
-              id="checkPassword"
-              name="checkPassword"
+              id="cPassword"
+              name="cPassword"
               label="비밀번호 확인"
               placeholder="비밀번호 확인"
               className={styles.control}
-              value={checkPassword}
-              onChange={(e) => setpassword(e.target.value)}
+              value={cPassword}
+              onChange={(e) => setcPassword(e.target.value)}
             />
 
             <div className={styles.buttonGroup}>
