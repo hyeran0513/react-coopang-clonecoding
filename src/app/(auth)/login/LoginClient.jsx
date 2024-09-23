@@ -13,6 +13,8 @@ import Divider from '@/components/devider/Devider'
 import Button from '@/components/button/Button'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { auth } from '@/firebase/firebase';
 
 const LoginClient = () => {
 
@@ -29,12 +31,30 @@ const LoginClient = () => {
 
   const loginUser = (e) => {
     e.preventDefault();
-    toast.info('성공');
     setisLoading(true);
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setisLoading(false);
+        toast.success("로그인에 성공했습니다.");
+        redirectUser();
+      })
+      .catch((error) => {
+        setisLoading(false);
+        toast.error(error.message);
+      })
   }
 
   const signInWithGoogle = () => {
-
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        toast.success("로그인에 성공했습니다.");
+        redirectUser();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      })
   }
 
   return (
@@ -118,7 +138,9 @@ const LoginClient = () => {
               <Divider />
               <div>
                 {/* Button */}
-                <Button>
+                <Button
+                  onClick={signInWithGoogle}
+                >
                   구글 로그인
                 </Button>
               </div>
